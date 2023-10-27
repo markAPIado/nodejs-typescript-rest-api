@@ -1,0 +1,18 @@
+FROM node:18-alpine3.18
+
+WORKDIR /app
+
+COPY package*.json ./
+
+COPY dist ./dist
+
+RUN npm install --omit=dev
+
+USER root
+RUN mkdir /var/log/nodeapp && chown node:node /var/log/nodeapp
+
+USER node
+
+EXPOSE 5000
+
+CMD [ "npm", "start" ]

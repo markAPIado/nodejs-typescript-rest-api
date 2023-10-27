@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "yaml.schemas": {
+    "docker-compose.prod.yml": ["docker-compose*.yml", "docker-compose*.yaml"]
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

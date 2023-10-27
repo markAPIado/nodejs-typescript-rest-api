@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prodcluster
+    env_file:
+      - ./docker/production.env
+    ports:
+      - 5000:5000
+    # NOTE: Uncomment the following lines to use mongo as a database for the API. Otherwise, the API will use mongo uri from the ENV on the host machine.
+#     depends_on:
+#       - mongo
+#   mongo:
+#     image: mongo:jammy
+#     restart: always
+#     ports:
+#       - 27017:27017
+#     volumes:
+#       - rest-api-data:/data/db
+
+# volumes:
+#   rest-api-data:

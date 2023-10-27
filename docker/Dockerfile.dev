@@ -1,0 +1,20 @@
+FROM node:18-alpine3.18
+
+WORKDIR /app
+
+COPY package*.json ./
+
+# COPY . .
+
+RUN npm install 
+
+USER root
+
+RUN mkdir /var/log/nodeapp && chown node:node /var/log/nodeapp
+
+USER node
+
+EXPOSE 5001
+
+CMD [ "npm", "run", "dev" ]
+# CMD ["npx", "nodemon", "--exec", "ts-node", "src/index.ts"]

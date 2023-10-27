@@ -1,0 +1,22 @@
+FROM node:18-alpine3.18
+
+WORKDIR /app
+
+COPY package*.json ./
+
+COPY dist ./dist
+
+COPY ecosystem.config.js ./
+
+RUN npm install pm2 -g
+
+RUN npm install --omit=dev
+
+USER root
+RUN mkdir /var/log/nodeapp && chown node:node /var/log/nodeapp
+
+USER node
+
+EXPOSE 5000
+
+CMD ["pm2-runtime", "ecosystem.config.js"]
