@@ -58,6 +58,7 @@ copy rename.env .env
 ```
 
 **Husky**
+
 Run the following command to set up the pre-commit hooks. The default `npm run prepare` script will cause issues on Docker containerization so we need to use a different script.
 
 ```
@@ -73,6 +74,7 @@ npm run dev
 ```
 
 **Pre-commit Workflow**
+
 Run the command below to lint and format the code before committing. This will avoid prettier and eslint making changes to the code format on the pre-commit hook.
 
 ```
@@ -80,6 +82,7 @@ npm run local:pre-commit
 ```
 
 **Commit Changes to Git**
+
 This will run the pre-commit hook created by `Husky` before committing the changes to git. Stages are as follows:
 
 - lint using eslint
@@ -126,7 +129,8 @@ npm run test:coverage
 
 ## Docker
 
-**Development**
+**Development:**
+
 Run the command below to start the development server using Docker. Check the `Dockerfile.dev` and `docker-compose.dev.yml` files for more details.
 NOTE: The hot reload feature is not yet available. Fixing this is one of the upcoming features.
 
@@ -134,18 +138,37 @@ NOTE: The hot reload feature is not yet available. Fixing this is one of the upc
 npm run build:docker-dev
 ```
 
-**Production**
+**Production:**
+
 Run the command below to start the production server using Docker. Check the `Dockerfile.prod` and `docker-compose.prod.yml` files for more details.
 
 ```
 npm run build:docker-prod
 ```
 
-**Cluster**
+**Cluster:**
+
 Run the command below to start the production server using PM2. Check the `Dockerfile.prodcluster` and `docker-compose.prodcluster.yml` files for more details.
 
 ```
 npm run build:docker-cluster
+```
+
+**Docker Hub:**
+
+Refer to the `Dockerfile.prod` for the image name and tag. Run the following command to push the image to Docker Hub. Example: [Nodejs Typescript Rest API](https://hub.docker.com/repository/docker/markapiado/nodejs-typescript-rest-api/general)
+
+
+First, login to Docker Hub. Enter your username and password when prompted.
+
+```
+docker login
+```
+
+Then, push the image to Docker Hub. Example: `docker push markapiado/nodejs-typescript-rest:latest`
+
+```
+docker push <image-name>:<tag>
 ```
 
 ## Github Actions CI/CD
@@ -168,12 +191,12 @@ npm run cluster:start
 
 ## Other Scripts
 
-**Formatting :**
+**Formatting:**
 
 - `npm run format` - formats the code using prettier.
 - `npm run format-check` - checks the format of code using prettier.
 
-**Linting :**
+**Linting:**
 
 - `npm run lint` - identifyies and reports on patterns found in ECMAScript/JavaScript code.
 
