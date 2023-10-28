@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.prod
+    # NOTE: Uncomment args below to use a custom image for the API. Otherwise, the API will use the default image which is the repository of this project. By convention, the image should be named as <dockerhub_username>/<image_name>. You can can append a tag to the image name by adding a colon (:) after the image name and then the tag name. For example, markapiado/nodejs-typescript-rest-api-dev:latest
+    image: markapiado/nodejs-typescript-rest-api:latest
     env_file:
       - ./docker/production.env
     ports:
