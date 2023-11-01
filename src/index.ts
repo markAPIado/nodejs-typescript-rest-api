@@ -19,4 +19,7 @@ const server = startServer(app);
 
 handleServerShutdown(server);
 
+/**
+ * The server is exported for testing purposes.
+ */
 export default server;
