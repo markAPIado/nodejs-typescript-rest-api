@@ -1,7 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import express from 'express';
+import express, { Express } from 'express';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -9,7 +9,7 @@ import environment, { Environment } from './environment';
 import { logger } from './logger';
 import { createRateLimit } from './security/rate-limit.utils';
 
-function initMiddlewares(app: express.Application) {
+function initMiddlewares(app: Express) {
   app.use(helmet());
 
   app.use(
