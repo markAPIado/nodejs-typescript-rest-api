@@ -11,15 +11,15 @@ import deserializeUser from '../../shared/middlewares/deserialize-user.middlewar
 import { createRateLimit } from '../../shared/security/rate-limit.utils';
 import environment, { Environment } from '../../shared/environment';
 
-export enum SESSION_ROUTES {
-  BASE = '/api/sessions',
-  ROOT = '/'
+export enum SessionRoutes {
+  SessionApiPath = '/api/sessions',
+  RootPath = '/'
 }
 
 const sessionRouter = Router();
 
 sessionRouter
-  .route(SESSION_ROUTES.ROOT)
+  .route(SessionRoutes.RootPath)
   .post(
     [
       createRateLimit({

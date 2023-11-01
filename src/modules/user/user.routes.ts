@@ -5,22 +5,22 @@ import { createUserSchema } from './user.schema';
 import requireUser from '../../shared/middlewares/require-user.middleware';
 import deserializeUser from '../../shared/middlewares/deserialize-user.middleware';
 
-export enum USER_ROUTES {
-  BASE = '/api/users',
-  ROOT = '/',
-  ME = '/me'
+export enum UserRoutes {
+  UserApiPath = '/api/users',
+  RootPath = '/',
+  MePath = '/me'
 }
 
 const userRouter = Router();
 
 userRouter.post(
-  USER_ROUTES.ROOT,
+  UserRoutes.RootPath,
   validateRequest(createUserSchema),
   createUserHandler
 );
 
 userRouter.get(
-  USER_ROUTES.ME,
+  UserRoutes.MePath,
   [deserializeUser, requireUser],
   getCurrentUserHandler
 );

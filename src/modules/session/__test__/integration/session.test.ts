@@ -5,7 +5,7 @@ import { disconnectDb } from '../../../../shared/database';
 import { HttpCode } from '../../../../shared/server/http/http-code.util';
 import User, { IUser } from '../../../user/user.model';
 import Session from '../../session.model';
-import { SESSION_ROUTES } from '../../session.routes';
+import { SessionRoutes } from '../../session.routes';
 
 describe('Session module', () => {
   let user: HydratedDocument<IUser>;
@@ -30,7 +30,7 @@ describe('Session module', () => {
     }).save();
 
     const getTokens = await supertest(server)
-      .post(SESSION_ROUTES.BASE)
+      .post(SessionRoutes.SessionApiPath)
       .set('User-Agent', 'Test-User-Agent')
       .send({
         email: user.email,
@@ -45,7 +45,7 @@ describe('Session module', () => {
     await disconnectDb();
   });
 
-  describe(`POST ${SESSION_ROUTES.BASE}`, () => {
+  describe(`POST ${SessionRoutes.SessionApiPath}`, () => {
     it(`should return with access and refresh tokens`, async () => {
       expect(accessToken).toBeDefined();
       expect(refreshToken).toBeDefined();
@@ -53,7 +53,7 @@ describe('Session module', () => {
 
     it(`should return ${HttpCode.BadRequest} Bad Request if email is invalid`, async () => {
       await supertest(server)
-        .post(SESSION_ROUTES.BASE)
+        .post(SessionRoutes.SessionApiPath)
         .send({
           email: 'invalid-email',
           password: 'password'
@@ -63,7 +63,7 @@ describe('Session module', () => {
 
     it(`should return ${HttpCode.BadRequest} Bad Request if password is invalid`, async () => {
       await supertest(server)
-        .post(SESSION_ROUTES.BASE)
+        .post(SessionRoutes.SessionApiPath)
         .send({
           email: user.email,
           password: 'invalid-password'
@@ -72,9 +72,11 @@ describe('Session module', () => {
     });
   });
 
-  describe(`GET ${SESSION_ROUTES.BASE}`, () => {
+  describe(`GET ${SessionRoutes.SessionApiPath}`, () => {
     it(`should return ${HttpCode.Forbidden} if access token is not provided`, async () => {
-      const response = await supertest(server).get(SESSION_ROUTES.BASE);
+      const response = await supertest(server).get(
+        SessionRoutes.SessionApiPath
+      );
 
       expect(response.status).toBe(HttpCode.Forbidden);
     });
@@ -88,7 +90,7 @@ describe('Session module', () => {
       }).save();
 
       const getTokens = await supertest(server)
-        .post(SESSION_ROUTES.BASE)
+        .post(SessionRoutes.SessionApiPath)
         .set('User-Agent', 'Test-User-Agent')
         .send({
           email: user.email,
@@ -99,7 +101,7 @@ describe('Session module', () => {
       accessToken = getTokens.body.accessToken;
 
       const response = await supertest(server)
-        .get(SESSION_ROUTES.BASE)
+        .get(SessionRoutes.SessionApiPath)
         .set('Authorization', `Bearer ${accessToken}`);
       expect(response.status).toBe(HttpCode.Ok);
       expect(response.body).toHaveLength(1);
@@ -107,16 +109,18 @@ describe('Session module', () => {
     });
   });
 
-  describe(`DELETE ${SESSION_ROUTES.BASE}`, () => {
+  describe(`DELETE ${SessionRoutes.SessionApiPath}`, () => {
     it(`should return ${HttpCode.Forbidden} if access token is not provided`, async () => {
-      const response = await supertest(server).delete(SESSION_ROUTES.BASE);
+      const response = await supertest(server).delete(
+        SessionRoutes.SessionApiPath
+      );
 
       expect(response.status).toBe(HttpCode.Forbidden);
     });
 
     it(`should return ${HttpCode.Ok} and refresh and access tokens with null values if access token is valid`, async () => {
       const response = await supertest(server)
-        .delete(SESSION_ROUTES.BASE)
+        .delete(SessionRoutes.SessionApiPath)
         .set('Authorization', `Bearer ${accessToken}`);
 
       expect(response.status).toBe(HttpCode.Ok);
