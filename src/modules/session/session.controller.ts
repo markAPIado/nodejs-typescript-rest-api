@@ -31,7 +31,6 @@ export async function createUserSessionHandler(
     );
   }
 
-  // TODO: Consider using lean instead
   const session = await createSession(user._id, req.get('user-agent')!).save();
 
   const userWithNoPassword = omit(user.toJSON(), 'password');

@@ -24,7 +24,6 @@ const deserializeUser = async (
     return next(new AppError('Forbidden', HttpCode.Forbidden));
   }
 
-  // TODO: Refactor the verifyJwt function
   const { decoded, expired } = await verifyJwt(accessToken);
 
   if (decoded) {
@@ -36,7 +35,6 @@ const deserializeUser = async (
     const newAccessToken = await reIssueAccessToken(refreshToken);
 
     if (newAccessToken) {
-      // TODO: Check the implementation
       res.setHeader('x-access-token', newAccessToken);
 
       res.cookie('accessToken', accessToken, {
