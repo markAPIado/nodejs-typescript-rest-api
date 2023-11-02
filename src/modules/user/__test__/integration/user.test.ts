@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import server from '../../../../index';
-import { USER_ROUTES } from '../../user.routes';
+import { UserRoutes } from '../../user.routes';
 import User from '../../user.model';
 import { HttpCode } from '../../../../shared/server/http/http-code.util';
 import { disconnectDb } from '../../../../shared/database';
@@ -14,7 +14,7 @@ const newUser = {
   password: '123456'
 };
 
-describe(USER_ROUTES.BASE, () => {
+describe(UserRoutes.UserApiPath, () => {
   afterEach(async () => {
     await User.deleteOne();
     await server.close();
@@ -24,10 +24,10 @@ describe(USER_ROUTES.BASE, () => {
     await disconnectDb();
   });
 
-  describe('POST /', () => {
+  describe(`POST ${UserRoutes.UserApiPath}`, () => {
     it(`should return status code: ${HttpCode.Created}`, async () => {
       const response = await supertest(server)
-        .post(USER_ROUTES.BASE)
+        .post(UserRoutes.UserApiPath)
         .send(newUser);
 
       expect(response.status).toBe(HttpCode.Created);
@@ -44,7 +44,7 @@ describe(USER_ROUTES.BASE, () => {
       await new User(newUser).save();
 
       const response = await supertest(server)
-        .post(USER_ROUTES.BASE)
+        .post(UserRoutes.UserApiPath)
         .send(newUser);
 
       expect(response.status).toBe(HttpCode.BadRequest);
@@ -52,12 +52,12 @@ describe(USER_ROUTES.BASE, () => {
     });
   });
 
-  describe('GET /me', () => {
+  describe(`GET ${UserRoutes.UserApiPath}${UserRoutes.MePath}`, () => {
     it(`should return the current user and status code: ${HttpCode.Ok}`, async () => {
       const user = await new User(newUser).save();
 
       const response = await supertest(server)
-        .get(USER_ROUTES.BASE + USER_ROUTES.ME)
+        .get(UserRoutes.UserApiPath + UserRoutes.MePath)
         .set(
           'Authorization',
           `Bearer ${signJwt(omit(user.toJSON(), 'password'))}`

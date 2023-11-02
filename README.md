@@ -158,7 +158,6 @@ npm run build:docker-cluster
 
 Refer to the `Dockerfile.prod` for the image name and tag. Run the following command to push the image to Docker Hub. Example: [Nodejs Typescript Rest API](https://hub.docker.com/repository/docker/markapiado/nodejs-typescript-rest-api/general)
 
-
 First, login to Docker Hub. Enter your username and password when prompted.
 
 ```
@@ -173,7 +172,7 @@ docker push <image-name>:<tag>
 
 ## Github Actions CI/CD
 
-Instructions on how to set up Github Actions CI/CD pipeline is found [here](./GITHUB_ACTIONS.md).
+Instructions on how to set up Github Actions CI/CD pipeline is found <a href="./docs/GITHUB_ACTIONS.md" target="_blank">here</a>.
 
 ## Clustering using PM2
 

@@ -1,12 +1,12 @@
 import supertest from 'supertest';
 import server from '../../../index';
 import { disconnectDb } from '../../../shared/database';
-import { TEST_API_ROUTE } from '../test-api.routes';
+import { HEALTH_CHECK_ROUTE } from '../health-check.routes';
 import { HttpCode } from '../../../shared/server/http/http-code.util';
 
 const DOES_NOT_EXIST_ROUTE = '/doesnotexist';
 
-describe('test route', () => {
+describe('Health Check', () => {
   afterEach(async () => {
     await server.close();
   });
@@ -15,9 +15,9 @@ describe('test route', () => {
     await disconnectDb();
   });
 
-  describe(TEST_API_ROUTE + ': Given a route that exists', () => {
+  describe(HEALTH_CHECK_ROUTE + ': Given a route that exists', () => {
     it(`should return ${HttpCode.Ok}`, async () => {
-      const response = await supertest(server).get(TEST_API_ROUTE);
+      const response = await supertest(server).get(HEALTH_CHECK_ROUTE);
       expect(response.status).toBe(HttpCode.Ok);
     });
   });

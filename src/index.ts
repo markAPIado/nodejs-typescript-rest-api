@@ -6,7 +6,7 @@ import { handleExceptionAndRejectionError } from './shared/server/error-handler/
 import { handleServerShutdown } from './shared/server/error-handler/server-shutdown.handler';
 import createApp from './shared/server/express/create-app';
 
-export const app = createApp();
+const app = createApp();
 
 handleExceptionAndRejectionError();
 
@@ -19,4 +19,7 @@ const server = startServer(app);
 
 handleServerShutdown(server);
 
+/**
+ * The server is exported for testing purposes.
+ */
 export default server;
