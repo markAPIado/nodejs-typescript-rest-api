@@ -28,7 +28,7 @@ const environment = {
     parseInt(process.env.REFRESH_TOKEN_TTL as string) * 1000 * 60, // minutes
   cookieAllowedDomain: process.env.COOKIE_ALLOWED_DOMAIN
   /**
-   * Add more environment variables here
+   * NOTE: Add more environment variables here
    */
 };
 
