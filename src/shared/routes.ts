@@ -8,11 +8,13 @@ import errorHandler from './middlewares/error-handler.middleware';
 import notFound from './middlewares/not-found.middleware';
 
 function initRoutes(app: Express) {
-  app.use(healthCheckRouter);
-
+  /**
+   * NOTE: Add your routes here
+   */
   app.use(UserRoutes.UserApiPath, userRouter);
   app.use(SessionRoutes.SessionApiPath, sessionRouter);
 
+  app.use(healthCheckRouter);
   app.use(notFound);
   app.use(errorHandler);
 }
