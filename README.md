@@ -170,6 +170,10 @@ Then, push the image to Docker Hub. Example: `docker push markapiado/nodejs-type
 docker push <image-name>:<tag>
 ```
 
+## Kubernetes Local Setup
+
+Instructions on how to set up Kubernetes locally is found <a href="./docs/KUBERNETES.md" target="_blank">here</a>.
+
 ## Github Actions CI/CD
 
 Instructions on how to set up Github Actions CI/CD pipeline is found <a href="./docs/GITHUB_ACTIONS.md" target="_blank">here</a>.
