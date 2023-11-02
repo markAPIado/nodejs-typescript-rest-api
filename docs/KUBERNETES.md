@@ -76,6 +76,12 @@ kubectl proxy --port=8080
 
 `--port` is the port that the Kubernetes API server will listen on. You can use any port number you want.
 
+**OPTIONAL**: Starting Kebernetes in the background:
+
+```
+kubectl proxy --port=8080 &
+```
+
 To verify that Kubernetes is running, go to `http://localhost:8080/` in your browser. You should see a JSON response.
 
 ```
@@ -102,8 +108,96 @@ To verify that Kubernetes is running, go to `http://localhost:8080/` in your bro
 
 ## Compose to Kubernetes
 
+Open a new terminal and go to the project directory.
+
 Run the following command to convert the `docker-compose.kubernetes.yml` file to Kubernetes resources:
 
 ```
 kompose convert -f docker-compose.kubernetes.yml
 ```
+
+This will generate the following files in the root directory. The .yaml files contain the Kubernetes resources. You may see more files depending on the services you have in your `docker-compose.kubernetes.yml` file.
+
+- `api-tcp-service.yaml`
+- `api-deployment.yaml`
+
+## Deploy to Kubernetes Cluster
+
+Run the following command to deploy the Kubernetes resources:
+
+```
+kubectl apply -f api-deployment.yaml
+```
+
+```
+kubectl apply -f api-tcp-service.yaml
+```
+
+To verify that the Kubernetes resources are deployed, run the following command:
+
+```
+kubectl get all
+```
+
+You should see an output similar to this:
+
+```
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/api-deployment-7f8f9f7f9f-4q9q4   1/1     Running   0          2m
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/api-tcp-service   ClusterIP
+```
+
+## Managing Replicas
+
+Run the following command to scale the number of replicas:
+
+```
+kubectl scale --replicas=3 deployment/api
+```
+
+To verify that the replicas are scaled, run the following command:
+
+```
+kubectl get all
+```
+
+You should see an output similar to this:
+
+```
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/api-deployment-7f8f9f7f9f-4q9q4   1/1     Running   0          2m
+pod/api-deployment-7f8f9f7f9f-5q9q4   1/1     Running   0          2m
+pod/api-deployment-7f8f9f7f9f-6q9q4   1/1     Running   0          2m
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/api-tcp-service   ClusterIP
+```
+
+You can revert the number of replicas back to 1 by running the following command:
+
+```
+kubectl scale --replicas=1 deployment/api
+```
+
+## Delete Kubernetes Resources
+
+Run the following command to delete the Kubernetes resources:
+
+```
+kubectl delete all --all
+```
+
+When you run `kubectl get all` ,you should see an output similar to this:
+
+```
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   41s
+```
+
+# NOTE:
+
+Currently my setup is generating pending pods. I am still investigating this issue. I will update this section once I have a solution.
+
+You may also want to fix the same issue by making a pull request to this repository.

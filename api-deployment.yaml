@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\Mark\AppData\Local\Microsoft\WinGet\Packages\Kubernetes.kompose_Microsoft.Winget.Source_8wekyb3d8bbwe\kompose.exe convert -f docker-compose.kubernetes.yml
+    kompose.service.type: LoadBalancer
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api
+  name: api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: api
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\Mark\AppData\Local\Microsoft\WinGet\Packages\Kubernetes.kompose_Microsoft.Winget.Source_8wekyb3d8bbwe\kompose.exe convert -f docker-compose.kubernetes.yml
+        kompose.service.type: LoadBalancer
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/nodejs-typescript-rest-api-default: 'true'
+        io.kompose.service: api
+    spec:
+      containers:
+        - env:
+            - name: ACCESS_TOKEN_TTL
+              value: '15'
+            - name: CORS_ORIGIN
+              value: http://localhost:5000
+            - name: HOST
+              value: http://localhost
+            - name: MONGODB_LOGGER_ENABLED
+            - name: MONGO_DB_NAME
+              value: restapi
+            - name: MONGO_URI
+              value: mongodb://host.docker.internal:27017/
+            - name: MORGAN_ENABLED
+              value: '1'
+            - name: NODE_ENV
+              value: development
+            - name: PORT
+              value: '5000'
+            - name: PRIVATE_KEY
+              value: '"-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAubqmji+R4bW2ayaAVUAUTuugRN4jTalumGede3O1qPHEIxJ21hOgLS4nbMjT/v2Y7SsxuFDo+5BizPY7gd1mz9ro5sAcuNafq+P0e1T1fUkmzGHH\nvokQFkswnLvRxYnEtANC1kvlIwNRBYG/w5oADCr9hPE/X/E0iYwX7ngbuOrkCymS\neDMpe4W/nHxq7cbtf3aj20HEa2/42wtogB2v+uySk61y6izdKtpCHix7Jbd9wdTX\ning3wRgbhwv5FC149TTIqfKryglcgk9ERwP+D8o8QaTW6dKK+3ykv304SqwvrXBO\nEUbj34RR9sFSfxu5ZdvIJq41Z4g3LQYgGNn7oQIDAQABAoIBAQCj4//rQjDh0n55\nSQ0/rP7+sU/I1ZijhFqSZASElpN71HO2WynAOKtEkxC5HvJrdY7H4jDKq6Mbscpt\ngO775so9qreQP4BY3xMhFFN9rXe/KZjyC2q+SKaIdasc82Plg2+vRZ1qCqjU361U\nRa1ZRoC6PAlgkZ3R5L/ujE/l39jer+yBHTotKhFqzKZsA5pIduxgqCNprT96OCeV\nBw3RMedeu/n2wlH/yDoHD3xhZrQgacSYitjefw7unHpg/4mjj91PqBtiapYfVp2Z\n3ikUYbNKGNY0ZKKzdlBKDmXpk1gOaP90l9OWIPEXIAd7ETEqgN2QUCAf6a2KmnRf\n5sYYIDNBAoGBAPOQT3vsi4feBYzcI2o7tui590+BFAeL0vqr4xLUk2lSTFNZ8dP9\nhSNA9bHmNxnDq3zNVJnqbC7hvbwAHdF6SNgyMpTXAbt2tS4f0Ft3CYP85Ib4bsSm\neChz0GFpHxwFZ4Ev8OGt0o//W+XZyWgrVvQCJmJuWEbJRS9hKCsY2jJJAoGBAMM2\nXiTTBVZd0pCRVgo51k79wiMGxb7Jxgm+9LBqiRClU5iBE52a1eyMnsLmeLs1erui\n2mNzIlWddJnxqsOsLXF0sJHTr1reESKBe8+b3k6NLf6jwWaqmMMyzAHJe4uN5HEF\n4yWotSj1Y0XChzOu6yMLUVooSZ6VFvni2GbMIn6ZAoGBAKEzPtgHC6Yl1MiQnkPe\nN8W55yvQg2AnM8DCaKx60wGe/XMhEYO7xBU8FiDi/E7qCSK1hyvDUkyJDZlS/mk5\nJOMp/f4yeywGeg2H8s/Gbh7UDrAh1rYCc35agG0oNPXHweRnxWaoM7coTDtJNBrk\nrE0c6yi0XWqkJU0hYYN8lFU5AoGACCfTUxKF3I/a5jNMNu0nqPEtFS2JQWlInsud\niWlKBKoDjhGGckUvvsw5LcdXL+sSD5jEKvd6bb1AS9Yu3jHpTB4l6lG/t7ojWR+z\nvn6ykPGRBFxvDgz+iNkscL6sLK5m5tnqHX6o4uctmJKB94TNSg+E/JFGUhvEc/go\nNlM89bECgYEA1/XpGAxM13rpq/QJFJbPsF8AGz8O38NxYv+D6lCQY1Im/wiHeYQ2\naxTUs9H2FEhgBofeIfUrVHAPfmbw61fK1ADEfjgem+idziAgviz5OY14rTxqscsz\nmLq0+/0mJe6O+SNXgNStAofheaez4UWE3cUlAu+WHVLD0iYxTwXidXE=\n-----END RSA PRIVATE KEY-----"'
+            - name: PUBLIC_KEY
+              value: '"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAubqmji+R4bW2ayaAVUAUTuugRN4jTalumGede3O1qPHEIxJ21hOgLS4nbMjT/v2Y7SsxuFDo+5BizPY7gd1m\nz9ro5sAcuNafq+P0e1T1fUkmzGHHvokQFkswnLvRxYnEtANC1kvlIwNRBYG/w5oA\nDCr9hPE/X/E0iYwX7ngbuOrkCymSeDMpe4W/nHxq7cbtf3aj20HEa2/42wtogB2v\n+uySk61y6izdKtpCHix7Jbd9wdTXing3wRgbhwv5FC149TTIqfKryglcgk9ERwP+\nD8o8QaTW6dKK+3ykv304SqwvrXBOEUbj34RR9sFSfxu5ZdvIJq41Z4g3LQYgGNn7\noQIDAQAB\n-----END PUBLIC KEY-----"'
+            - name: REFRESH_TOKEN_TTL
+              value: '172800'
+            - name: SALT_WORK_FACTOR
+              value: '10'
+          image: markapiado/nodejs-typescript-rest-api:latest
+          name: api
+          ports:
+            - containerPort: 5000
+              hostPort: 5000
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
